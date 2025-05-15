@@ -58,8 +58,8 @@ const SuccessConfetti = ({ moyenne, studentName }: SuccessConfettiProps) => {
         className: "bg-green-100 border-green-500 text-green-800",
       });
       
-      // Play congratulation sound
-      const audio = new Audio('/success-sound.mp3');
+      // Play applause sound
+      const audio = new Audio('/applause-sound.mp3');
       audio.volume = 0.5;
       audio.play().catch(e => console.log('Sound playback prevented by browser'));
       
