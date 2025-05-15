@@ -4,6 +4,7 @@ import type { StudentResult as StudentResultType } from "@/types/student";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface StudentResultProps {
   student: StudentResultType;
@@ -42,22 +43,24 @@ const StudentResult = ({ student }: StudentResultProps) => {
       <Card className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeIn transition-all duration-300 hover:shadow-xl">
         <CardHeader className="bg-blue-50 p-6 relative">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Avatar className="h-20 w-20 ring-4 ring-blue-200 transition-all duration-300 hover:scale-105">
-                  <AvatarImage 
-                    src={student.photo} 
-                    alt={student.nom_prenom}
-                    className="object-cover"
-                  />
-                  <AvatarFallback className="bg-blue-500 text-white text-xl">
-                    {getInitials(student.nom_prenom)}
-                  </AvatarFallback>
-                </Avatar>
+            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full">
+              <div className="relative mx-auto md:mx-0">
+                <div className="h-32 w-32 rounded-full overflow-hidden ring-4 ring-blue-200 transition-all duration-300 hover:scale-105 shadow-lg">
+                  <AspectRatio ratio={1/1}>
+                    <img 
+                      src={student.photo} 
+                      alt={student.nom_prenom}
+                      className="object-cover w-full h-full"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "https://gestion.estim-online.com/media/photos/default.png";
+                      }}
+                    />
+                  </AspectRatio>
+                </div>
               </div>
-              <div>
+              <div className="text-center md:text-left">
                 <h2 className="text-xl font-bold text-blue-800">{student.nom_prenom}</h2>
-                <div className="flex flex-wrap gap-2 mt-1">
+                <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-1">
                   <Badge variant="outline" className="bg-blue-50 border-blue-200">
                     Matricule: {student.matricule}
                   </Badge>
