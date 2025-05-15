@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Confetti from 'react-confetti';
-import useWindowSize from 'react-confetti/dist/hooks/useWindowSize';
 import { useToast } from '@/components/ui/use-toast';
 
 interface SuccessConfettiProps {
@@ -12,10 +11,26 @@ interface SuccessConfettiProps {
 const SuccessConfetti = ({ moyenne, studentName }: SuccessConfettiProps) => {
   const [active, setActive] = useState(true);
   const [density, setDensity] = useState(0);
-  const { width, height } = useWindowSize();
+  const [windowDimensions, setWindowDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
   const { toast } = useToast();
   
   const moyenneNum = parseFloat(moyenne);
+  
+  // Update window dimensions on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Set confetti density based on the student's average
   useEffect(() => {
@@ -61,8 +76,8 @@ const SuccessConfetti = ({ moyenne, studentName }: SuccessConfettiProps) => {
   
   return (
     <Confetti
-      width={width}
-      height={height}
+      width={windowDimensions.width}
+      height={windowDimensions.height}
       numberOfPieces={density}
       recycle={false}
       colors={[
