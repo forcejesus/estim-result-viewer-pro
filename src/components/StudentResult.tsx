@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import type { StudentResult as StudentResultType } from "@/types/student";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Loader } from "lucide-react";
+import SuccessConfetti from "./SuccessConfetti";
 
 interface StudentResultProps {
   student: StudentResultType;
@@ -45,6 +45,7 @@ const StudentResult = ({ student }: StudentResultProps) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
+      <SuccessConfetti moyenne={student.moyenne_generale} studentName={student.nom_prenom} />
       <Card className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeIn transition-all duration-300 hover:shadow-xl">
         <CardHeader className="bg-blue-50 p-6 relative">
           <div className="flex items-center justify-between">
