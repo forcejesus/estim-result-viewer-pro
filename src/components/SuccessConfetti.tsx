@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-confetti';
+import useWindowSize from 'react-confetti/dist/hooks/useWindowSize';
 import { useToast } from '@/components/ui/use-toast';
 
 interface SuccessConfettiProps {
