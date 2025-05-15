@@ -1,12 +1,11 @@
-
 import React from "react";
-import { StudentResult } from "@/types/student";
+import type { StudentResult as StudentResultType } from "@/types/student";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 interface StudentResultProps {
-  student: StudentResult;
+  student: StudentResultType;
 }
 
 const StudentResult = ({ student }: StudentResultProps) => {

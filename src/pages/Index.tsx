@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import ResultSearch from "@/components/ResultSearch";
 import StudentResult from "@/components/StudentResult";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useToast } from "@/components/ui/use-toast";
 import { fetchStudentResult } from "@/lib/api";
-import { StudentResult as StudentResultType } from "@/types/student";
+import type { StudentResult as StudentResultType } from "@/types/student";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);

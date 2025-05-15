@@ -1,5 +1,5 @@
 
-import { StudentResult } from "@/types/student";
+import type { StudentResult } from "@/types/student";
 
 export async function fetchStudentResult(matricule: string): Promise<StudentResult> {
   const response = await fetch(`https://gestion.estim-online.com/api/etudiants/resultat/v2/${matricule}`);
