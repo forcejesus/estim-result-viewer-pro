@@ -85,7 +85,7 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
         className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1"
         disabled={isLoading || matricule.length !== 4}
       >
-        {isLoading ? "Recherche en cours..." : "Rechercher"}
+        {isLoading ? "Recherche en cours..." : "Consulter"}
       </Button>
     </form>
   );

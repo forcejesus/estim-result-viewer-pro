@@ -30,7 +30,7 @@ const SubjectsTable = ({ subjects }: SubjectsTableProps) => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-2 text-xs md:text-sm">
+                <div className="flex flex-col space-y-2 text-xs md:text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">Devoir:</span>
                     <span className="font-medium">{matiere.note_devoir}/20</span>

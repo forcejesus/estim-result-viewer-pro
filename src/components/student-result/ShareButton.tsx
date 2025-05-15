@@ -27,19 +27,20 @@ const ShareButton = ({ student }: ShareButtonProps) => {
     try {
       // Créer le lien direct vers les résultats
       const resultatsLink = `https://resultats.estim-online.com?matricule=${student.matricule}`;
+      const inscriptionsLink = "https://inscriptions.estim-online.com";
       
-      // Créer un texte de partage avec les informations nécessaires
+      // Créer un texte de partage avec les informations nécessaires et le nouveau format
       const shareText = `
 📊 Résultats académiques - ESTIM 🎓
+École Supérieure de Technologie, d'Ingénierie et de Management
 
-Étudiant: ${student.nom_prenom}
-Classe: ${student.classe}
-Moyenne générale: ${student.moyenne_generale}/20
-Statut: ${getStatusLabel(student.moyenne_generale)}
+👤 Étudiant(e) : ${student.nom_prenom}
+🏫 Classe : ${student.classe}
+📈 Moyenne générale : ${student.moyenne_generale} / 20
+📌 Statut : ${getStatusLabel(student.moyenne_generale)}
 
-Consultez vos résultats: ${resultatsLink}
-
-École Supérieure de Technologie d'Informatique et de Management (ESTIM)
+📥 Consultez vos résultats 👉 ${resultatsLink}
+📝 Prenez une inscription dans notre école 👉 ${inscriptionsLink}
       `;
 
       // Utiliser l'API Web Share si disponible
@@ -90,7 +91,7 @@ Consultez vos résultats: ${resultatsLink}
           <span className="font-medium text-sm md:text-base">ESTIM</span>
         </div>
         <Share2 className="h-3 w-3 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
-        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager mes résultats"}</span>
+        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager ce résultat"}</span>
       </div>
     </Button>
   );

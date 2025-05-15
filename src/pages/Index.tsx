@@ -70,7 +70,7 @@ const Index = () => {
               className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
             />
             <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2 animate-fadeIn slide-in-right">
-              Vérification des Résultats
+              Consultation des Résultats
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto animate-fadeIn">
               Entrez votre matricule pour consulter vos résultats académiques.
