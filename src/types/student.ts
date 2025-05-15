@@ -5,4 +5,6 @@ export interface StudentResult {
   classe: string;
   moyenne_generale: string;
   photo: string;
+  details?: string; // Ajout de l'attribut details qui est optionnel
 }
+

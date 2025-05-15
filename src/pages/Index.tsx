@@ -7,7 +7,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { fetchStudentResult } from "@/lib/api";
 import type { StudentResult as StudentResultType } from "@/types/student";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Ban } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +33,15 @@ const Index = () => {
     try {
       const result = await fetchStudentResult(matricule);
       setStudentResult(result);
+      
+      // Vérifier si les détails existent (ce qui signifie que l'étudiant n'est pas autorisé)
+      if (result.details) {
+        toast({
+          title: "Accès refusé",
+          description: result.details,
+          variant: "destructive",
+        });
+      }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Une erreur est survenue";
       setError(errorMessage);
@@ -98,7 +108,18 @@ const Index = () => {
                 <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                 Rechercher un autre matricule
               </Button>
-              <StudentResult student={studentResult} />
+              
+              {studentResult.details ? (
+                <Alert variant="destructive" className="animate-fadeIn border-2 border-red-200 bg-red-50">
+                  <Ban className="h-5 w-5 text-red-500 mr-2" />
+                  <AlertTitle className="text-lg font-bold mb-2">Accès refusé</AlertTitle>
+                  <AlertDescription className="text-red-800">
+                    {studentResult.details}
+                  </AlertDescription>
+                </Alert>
+              ) : (
+                <StudentResult student={studentResult} />
+              )}
             </div>
           )}
         </div>
