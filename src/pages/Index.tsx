@@ -58,21 +58,24 @@ const Index = () => {
       <div 
         className={`container mx-auto px-4 py-12 relative z-10 transition-opacity duration-1000 ease-out ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}
       >
-        <header className="text-center mb-12 flex flex-col items-center staggered-animation">
-          <img 
-            src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
-            alt="ESTIM Logo" 
-            className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
-          />
-          <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2 animate-fadeIn slide-in-right">
-            Vérification des Résultats
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto animate-fadeIn">
-            Entrez votre matricule pour consulter vos résultats académiques.
-          </p>
-        </header>
+        {/* N'afficher l'en-tête que lorsqu'aucun résultat n'est affiché */}
+        {!studentResult && (
+          <header className="text-center mb-12 flex flex-col items-center staggered-animation">
+            <img 
+              src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
+              alt="ESTIM Logo" 
+              className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
+            />
+            <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2 animate-fadeIn slide-in-right">
+              Vérification des Résultats
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto animate-fadeIn">
+              Entrez votre matricule pour consulter vos résultats académiques.
+            </p>
+          </header>
+        )}
 
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeInScale scale-on-hover">
+        <div className={`max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeInScale scale-on-hover ${studentResult ? "mt-6" : ""}`}>
           {!studentResult ? (
             <>
               <ResultSearch onSearch={handleSearch} isLoading={isLoading} />

@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,14 @@ interface ResultSearchProps {
 const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
   const [matricule, setMatricule] = useState("");
   const { toast } = useToast();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Si le matricule atteint 4 chiffres, masquer le clavier
+    if (matricule.length === 4) {
+      inputRef.current?.blur();
+    }
+  }, [matricule]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +34,24 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
       return;
     }
     
+    if (matricule.trim().length !== 4 || !/^\d+$/.test(matricule)) {
+      toast({
+        title: "Erreur",
+        description: "Le matricule doit contenir exactement 4 chiffres",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     onSearch(matricule.trim());
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Accepter uniquement les chiffres et limiter à 4 caractères
+    if (/^\d*$/.test(value) && value.length <= 4) {
+      setMatricule(value);
+    }
   };
 
   return (
@@ -41,10 +66,14 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
         <div className="relative">
           <Input
             id="matricule"
-            type="text"
-            placeholder="Entrez votre matricule"
+            ref={inputRef}
+            type="number"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={4}
+            placeholder="Entrez votre matricule (4 chiffres)"
             value={matricule}
-            onChange={(e) => setMatricule(e.target.value)}
+            onChange={handleChange}
             className="pl-10 bg-white border-blue-200 focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition-all duration-300"
             autoComplete="off"
           />
@@ -54,7 +83,7 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
       <Button 
         type="submit" 
         className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1"
-        disabled={isLoading}
+        disabled={isLoading || matricule.length !== 4}
       >
         {isLoading ? "Recherche en cours..." : "Rechercher"}
       </Button>
