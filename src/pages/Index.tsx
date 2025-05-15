@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import ResultSearch from "@/components/ResultSearch";
 import StudentResult from "@/components/StudentResult";
@@ -6,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { fetchStudentResult } from "@/lib/api";
 import type { StudentResult as StudentResultType } from "@/types/student";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Ban } from "lucide-react";
+import { ArrowLeft, Ban, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const Index = () => {
@@ -107,6 +108,18 @@ const Index = () => {
                   <AlertTitle className="text-lg font-bold mb-2">Accès refusé</AlertTitle>
                   <AlertDescription className="text-red-800">
                     {studentResult.details}
+                    <div className="mt-4 bg-amber-50 border border-amber-200 p-4 rounded-lg">
+                      <div className="flex items-start">
+                        <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5 mr-2" />
+                        <div>
+                          <p className="font-semibold text-amber-800">Information importante :</p>
+                          <p className="text-amber-700 mt-1">
+                            Veuillez vous présenter au service de scolarité pour régulariser votre situation. 
+                            Cette restriction est généralement liée à un solde impayé des frais de scolarité.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </AlertDescription>
                 </Alert>
               ) : (
