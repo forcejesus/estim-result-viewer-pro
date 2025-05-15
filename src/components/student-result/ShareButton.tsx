@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { StudentResult } from "@/types/student";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Share } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ShareButtonProps {
@@ -89,8 +89,8 @@ Consultez vos résultats: ${resultatsLink}
           />
           <span className="font-medium text-sm md:text-base">ESTIM</span>
         </div>
-        <Share2 className="h-3 w-3 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
-        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager mes résultats"}</span>
+        <Share className="h-3 w-3 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
+        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager les résultats"}</span>
       </div>
     </Button>
   );
