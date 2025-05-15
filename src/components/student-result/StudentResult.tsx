@@ -13,7 +13,7 @@ interface StudentResultProps {
 
 const StudentResult = ({ student }: StudentResultProps) => {
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-full mx-auto">
       <SuccessConfetti moyenne={student.moyenne_generale} studentName={student.nom_prenom} />
       <div className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeInScale transition-all duration-500 hover:shadow-xl rounded-lg">
         <StudentHeader student={student} />

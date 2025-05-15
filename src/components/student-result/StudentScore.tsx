@@ -38,7 +38,7 @@ const StudentScore = ({ moyenne }: StudentScoreProps) => {
     <>
       <div className="text-center mb-4 md:mb-6 transform transition-all duration-500 hover:scale-105 animate-fadeIn">
         <p className="text-sm md:text-base text-gray-500 mb-1">Moyenne Générale</p>
-        <div className={`text-2xl md:text-3xl font-bold inline-flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full text-white ${getColorByMoyenne(moyenne)} shadow-lg transition-all duration-500 ease-in-out animate-fadeInScale`}>
+        <div className={`text-2xl md:text-3xl font-bold inline-flex items-center justify-center h-20 w-20 md:h-24 md:w-24 rounded-full text-white ${getColorByMoyenne(moyenne)} shadow-lg transition-all duration-500 ease-in-out animate-fadeInScale p-2 md:p-3`}>
           {moyenne}/20
         </div>
         <p className="mt-2 text-sm md:text-base font-medium text-gray-700 animate-fadeIn slide-in-right">

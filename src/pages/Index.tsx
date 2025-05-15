@@ -59,11 +59,11 @@ const Index = () => {
       <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-blue-500 animate-float"></div>
       
       <div 
-        className={`container mx-auto px-4 py-12 relative z-10 transition-opacity duration-1000 ease-out ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`container mx-auto px-0 sm:px-4 py-12 relative z-10 transition-opacity duration-1000 ease-out ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}
       >
         {/* N'afficher l'en-tête que lorsqu'aucun résultat n'est affiché */}
         {!studentResult && (
-          <header className="text-center mb-12 flex flex-col items-center staggered-animation">
+          <header className="text-center mb-12 flex flex-col items-center staggered-animation px-4">
             <img 
               src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
               alt="ESTIM Logo" 
@@ -78,7 +78,7 @@ const Index = () => {
           </header>
         )}
 
-        <div className={`max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeInScale scale-on-hover ${studentResult ? "mt-6" : ""}`}>
+        <div className={`max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-4 md:p-8 animate-fadeInScale scale-on-hover ${studentResult ? "mt-6" : ""}`}>
           {!studentResult ? (
             <>
               <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
