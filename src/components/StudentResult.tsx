@@ -6,8 +6,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Loader } from "lucide-react";
+import { Loader, Share } from "lucide-react";
 import SuccessConfetti from "./SuccessConfetti";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 interface StudentResultProps {
   student: StudentResultType;
@@ -17,6 +19,8 @@ const StudentResult = ({ student }: StudentResultProps) => {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const { toast } = useToast();
 
   const getInitials = (name: string) => {
     return name
@@ -43,6 +47,53 @@ const StudentResult = ({ student }: StudentResultProps) => {
     if (moyenneNum >= 12) return "Bien";
     if (moyenneNum >= 10) return "Passable";
     return "Insuffisant";
+  };
+
+  // Fonction pour partager les résultats
+  const handleShare = async () => {
+    setSharing(true);
+    try {
+      // Créer un texte de partage avec les informations nécessaires
+      const shareText = `
+📊 Résultats académiques - ESTIM 🎓
+
+Étudiant: ${student.nom_prenom}
+Classe: ${student.classe}
+Moyenne générale: ${student.moyenne_generale}/20
+Statut: ${getStatusLabel(student.moyenne_generale)}
+
+École Supérieure de Technologie d'Informatique et de Management (ESTIM)
+      `;
+
+      // Utiliser l'API Web Share si disponible
+      if (navigator.share) {
+        await navigator.share({
+          title: `Résultats ESTIM - ${student.nom_prenom}`,
+          text: shareText,
+        });
+        toast({
+          title: "Partage réussi",
+          description: "Le contenu a été partagé avec succès.",
+          className: "bg-green-50 border-green-200 text-green-800",
+        });
+      } else {
+        // Fallback si l'API Web Share n'est pas disponible
+        await navigator.clipboard.writeText(shareText);
+        toast({
+          title: "Contenu copié",
+          description: "Les résultats ont été copiés dans le presse-papier.",
+          className: "bg-blue-50 border-blue-200 text-blue-800",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Erreur de partage",
+        description: "Une erreur s'est produite lors du partage.",
+        variant: "destructive",
+      });
+    } finally {
+      setSharing(false);
+    }
   };
 
   // Déclencher l'animation de la barre de progression après le chargement initial
@@ -127,6 +178,28 @@ const StudentResult = ({ student }: StudentResultProps) => {
               <span>0</span>
               <span>10</span>
               <span>20</span>
+            </div>
+
+            {/* Bouton de partage avec logo ESTIM */}
+            <div className="mt-6 w-full">
+              <Button 
+                onClick={handleShare}
+                disabled={sharing}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 group transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <div className="flex items-center justify-center w-full">
+                  <div className="flex items-center mr-2">
+                    <img
+                      src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png"
+                      alt="ESTIM Logo"
+                      className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform"
+                    />
+                    <span className="font-medium">ESTIM</span>
+                  </div>
+                  <Share className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                  <span className="ml-1">{sharing ? "Partage en cours..." : "Partager les résultats"}</span>
+                </div>
+              </Button>
             </div>
           </div>
         </CardContent>
