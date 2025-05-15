@@ -11,5 +11,20 @@ export async function fetchStudentResult(matricule: string): Promise<StudentResu
     throw new Error("Une erreur est survenue lors de la récupération des résultats");
   }
   
-  return await response.json();
+  const data = await response.json();
+  
+  // Si la réponse contient juste le champ "detail", c'est une erreur d'autorisation
+  if (data.detail && !data.matricule) {
+    // Nous transférons le message d'erreur dans la propriété "details" du résultat
+    return {
+      nom_prenom: "",
+      matricule: matricule,
+      classe: "",
+      moyenne_generale: "",
+      photo: "",
+      details: data.detail
+    };
+  }
+  
+  return data;
 }

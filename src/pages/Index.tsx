@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import ResultSearch from "@/components/ResultSearch";
 import StudentResult from "@/components/StudentResult";
@@ -34,14 +33,7 @@ const Index = () => {
       const result = await fetchStudentResult(matricule);
       setStudentResult(result);
       
-      // Vérifier si les détails existent (ce qui signifie que l'étudiant n'est pas autorisé)
-      if (result.details) {
-        toast({
-          title: "Accès refusé",
-          description: result.details,
-          variant: "destructive",
-        });
-      }
+      // Pas besoin de notification toast puisqu'on affiche l'alerte directement
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Une erreur est survenue";
       setError(errorMessage);
