@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import ResultSearch from "@/components/ResultSearch";
-import StudentResult from "@/components/StudentResult";
+import StudentResult from "@/components/student-result";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useToast } from "@/components/ui/use-toast";
 import { fetchStudentResult } from "@/lib/api";

@@ -18,7 +18,7 @@ const StudentResult = ({ student }: StudentResultProps) => {
       <div className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeInScale transition-all duration-500 hover:shadow-xl rounded-lg">
         <StudentHeader student={student} />
         
-        <div className="p-6 bg-gradient-to-b from-white to-blue-50">
+        <div className="p-4 md:p-6 bg-gradient-to-b from-white to-blue-50">
           <div className="flex flex-col items-center justify-center staggered-animation">
             <StudentScore moyenne={student.moyenne_generale} />
             

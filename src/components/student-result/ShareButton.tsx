@@ -78,19 +78,19 @@ Consultez vos résultats: ${resultatsLink}
     <Button 
       onClick={handleShare}
       disabled={sharing}
-      className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 group transition-all duration-300 shadow-lg hover:shadow-xl"
+      className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 group transition-all duration-300 shadow-lg hover:shadow-xl py-2 md:py-3 text-sm md:text-base"
     >
       <div className="flex items-center justify-center w-full">
         <div className="flex items-center mr-2">
           <img
             src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png"
             alt="ESTIM Logo"
-            className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform"
+            className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2 group-hover:scale-110 transition-transform"
           />
-          <span className="font-medium">ESTIM</span>
+          <span className="font-medium text-sm md:text-base">ESTIM</span>
         </div>
-        <Share className="h-4 w-4 group-hover:scale-110 transition-transform" />
-        <span className="ml-1">{sharing ? "Partage en cours..." : "Partager les résultats"}</span>
+        <Share className="h-3 w-3 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
+        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager les résultats"}</span>
       </div>
     </Button>
   );
