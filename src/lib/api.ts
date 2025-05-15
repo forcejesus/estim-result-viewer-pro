@@ -1,0 +1,15 @@
+
+import { StudentResult } from "@/types/student";
+
+export async function fetchStudentResult(matricule: string): Promise<StudentResult> {
+  const response = await fetch(`https://gestion.estim-online.com/api/etudiants/resultat/v2/${matricule}`);
+  
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error("Aucun étudiant trouvé avec ce matricule");
+    }
+    throw new Error("Une erreur est survenue lors de la récupération des résultats");
+  }
+  
+  return await response.json();
+}
