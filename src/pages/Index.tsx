@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import ResultSearch from "@/components/ResultSearch";
 import StudentResult from "@/components/StudentResult";
@@ -34,9 +35,17 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <div className="container mx-auto px-4 py-12">
-        <header className="text-center mb-12">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-blue-500"></div>
+      
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        <header className="text-center mb-12 flex flex-col items-center">
+          <img 
+            src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
+            alt="ESTIM Logo" 
+            className="h-24 md:h-32 mb-4 animate-fadeIn" 
+          />
           <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2">
             Vérification des Résultats
           </h1>
@@ -45,13 +54,13 @@ const Index = () => {
           </p>
         </header>
 
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-6 md:p-8">
+        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeIn">
           <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
           
           {isLoading && <LoadingSpinner />}
           
           {error && (
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center animate-fadeIn">
               <p className="text-red-600">{error}</p>
             </div>
           )}
@@ -64,7 +73,7 @@ const Index = () => {
         </div>
       </div>
       
-      <footer className="mt-12 py-4 text-center text-gray-500 text-sm">
+      <footer className="mt-12 py-4 text-center text-gray-500 text-sm relative z-10">
         <p>© {new Date().getFullYear()} ESTIM. Tous droits réservés.</p>
       </footer>
     </div>

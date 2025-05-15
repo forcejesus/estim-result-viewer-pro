@@ -30,9 +30,12 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md mx-auto">
+    <form 
+      onSubmit={handleSubmit} 
+      className="space-y-4 w-full max-w-md mx-auto transform transition-all duration-300 hover:scale-[1.01]"
+    >
       <div className="flex flex-col space-y-2">
-        <label htmlFor="matricule" className="text-sm font-medium text-gray-700">
+        <label htmlFor="matricule" className="text-sm font-medium text-blue-700">
           Matricule de l'apprenant
         </label>
         <div className="relative">
@@ -42,15 +45,15 @@ const ResultSearch = ({ onSearch, isLoading }: ResultSearchProps) => {
             placeholder="Entrez votre matricule"
             value={matricule}
             onChange={(e) => setMatricule(e.target.value)}
-            className="pl-10 bg-white"
+            className="pl-10 bg-white border-blue-200 focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition-all duration-300"
             autoComplete="off"
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-blue-400" />
         </div>
       </div>
       <Button 
         type="submit" 
-        className="w-full"
+        className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1"
         disabled={isLoading}
       >
         {isLoading ? "Recherche en cours..." : "Rechercher"}
