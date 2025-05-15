@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import type { StudentResult as StudentResultType } from "@/types/student";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -15,6 +16,7 @@ interface StudentResultProps {
 const StudentResult = ({ student }: StudentResultProps) => {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   const getInitials = (name: string) => {
     return name
@@ -43,15 +45,23 @@ const StudentResult = ({ student }: StudentResultProps) => {
     return "Insuffisant";
   };
 
+  // Déclencher l'animation de la barre de progression après le chargement initial
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationComplete(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="w-full max-w-md mx-auto">
       <SuccessConfetti moyenne={student.moyenne_generale} studentName={student.nom_prenom} />
-      <Card className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeIn transition-all duration-300 hover:shadow-xl">
+      <Card className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeInScale transition-all duration-500 hover:shadow-xl">
         <CardHeader className="bg-blue-50 p-6 relative">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full">
-              <div className="relative mx-auto md:mx-0">
-                <div className="h-32 w-32 rounded-full overflow-hidden ring-4 ring-blue-200 transition-all duration-300 hover:scale-105 shadow-lg">
+            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full staggered-animation">
+              <div className="relative mx-auto md:mx-0 animate-fadeIn hover-lift">
+                <div className="h-32 w-32 rounded-full overflow-hidden ring-4 ring-blue-200 transition-all duration-500 hover:ring-blue-400 shadow-lg">
                   <AspectRatio ratio={1/1} className="bg-blue-50 flex items-center justify-center">
                     {imageLoading && !imageError && (
                       <div className="absolute inset-0 flex items-center justify-center bg-blue-50 z-10">
@@ -62,7 +72,7 @@ const StudentResult = ({ student }: StudentResultProps) => {
                       <img 
                         src={student.photo} 
                         alt={student.nom_prenom}
-                        className={`object-cover w-full h-full transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                        className={`object-cover w-full h-full transition-all duration-700 ${imageLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
                         onLoad={() => setImageLoading(false)}
                         onError={(e) => {
                           setImageLoading(false);
@@ -73,47 +83,47 @@ const StudentResult = ({ student }: StudentResultProps) => {
                       <img 
                         src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
                         alt="ESTIM Logo"
-                        className="object-contain w-3/4 h-3/4 opacity-70" 
+                        className="object-contain w-3/4 h-3/4 opacity-70 animate-pulse" 
                       />
                     )}
                   </AspectRatio>
                 </div>
               </div>
-              <div className="text-center md:text-left">
-                <h2 className="text-xl font-bold text-blue-800">{student.nom_prenom}</h2>
+              <div className="text-center md:text-left animate-fadeIn slide-in-right">
+                <h2 className="text-xl font-bold text-blue-800 mb-2">{student.nom_prenom}</h2>
                 <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-1">
-                  <Badge variant="outline" className="bg-blue-50 border-blue-200">
+                  <Badge variant="outline" className="bg-blue-50 border-blue-200 hover-lift">
                     Matricule: {student.matricule}
                   </Badge>
-                  <Badge className="bg-blue-500 animate-pulse">{student.classe}</Badge>
+                  <Badge className="bg-blue-500 animate-pulse hover-lift">{student.classe}</Badge>
                 </div>
               </div>
             </div>
           </div>
         </CardHeader>
         <CardContent className="p-6 bg-gradient-to-b from-white to-blue-50">
-          <div className="flex flex-col items-center justify-center">
-            <div className="text-center mb-6 transform transition-all duration-300 hover:scale-105">
+          <div className="flex flex-col items-center justify-center staggered-animation">
+            <div className="text-center mb-6 transform transition-all duration-500 hover:scale-105 animate-fadeIn">
               <p className="text-gray-500 mb-1">Moyenne Générale</p>
-              <div className={`text-3xl font-bold inline-flex items-center justify-center h-20 w-20 rounded-full text-white ${getColorByMoyenne(student.moyenne_generale)} shadow-lg transition-transform duration-300 ease-in-out`}>
+              <div className={`text-3xl font-bold inline-flex items-center justify-center h-20 w-20 rounded-full text-white ${getColorByMoyenne(student.moyenne_generale)} shadow-lg transition-all duration-500 ease-in-out animate-fadeInScale`}>
                 {student.moyenne_generale}/20
               </div>
-              <p className="mt-2 font-medium text-gray-700">
+              <p className="mt-2 font-medium text-gray-700 animate-fadeIn slide-in-right">
                 {getStatusLabel(student.moyenne_generale)}
               </p>
             </div>
             
-            <div className="w-full bg-gray-100 h-4 rounded-full mt-4 overflow-hidden shadow-inner">
+            <div className="w-full bg-gray-100 h-4 rounded-full mt-4 overflow-hidden shadow-inner animate-fadeIn">
               <div 
-                className={`h-4 rounded-full ${getColorByMoyenne(student.moyenne_generale)} transition-all duration-1000 ease-out`}
+                className={`h-4 rounded-full ${getColorByMoyenne(student.moyenne_generale)} transition-all duration-1500 ease-out`}
                 style={{ 
-                  width: `${(parseFloat(student.moyenne_generale) / 20) * 100}%`,
-                  animation: "grow 1s ease-out" 
+                  width: animationComplete ? `${(parseFloat(student.moyenne_generale) / 20) * 100}%` : '0%',
+                  animation: "grow 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)" 
                 }}
               ></div>
             </div>
             
-            <div className="flex justify-between w-full mt-1 text-xs text-gray-500">
+            <div className="flex justify-between w-full mt-1 text-xs text-gray-500 animate-fadeIn">
               <span>0</span>
               <span>10</span>
               <span>20</span>

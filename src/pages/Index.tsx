@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ResultSearch from "@/components/ResultSearch";
 import StudentResult from "@/components/StudentResult";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -11,7 +11,16 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [studentResult, setStudentResult] = useState<StudentResultType | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [pageLoaded, setPageLoaded] = useState(false);
   const { toast } = useToast();
+
+  // Animation d'entrée pour le chargement initial de la page
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoaded(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSearch = async (matricule: string) => {
     setIsLoading(true);
@@ -36,32 +45,34 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-blue-500"></div>
+      {/* Background pattern avec animation */}
+      <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-blue-500 animate-float"></div>
       
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <header className="text-center mb-12 flex flex-col items-center">
+      <div 
+        className={`container mx-auto px-4 py-12 relative z-10 transition-opacity duration-1000 ease-out ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <header className="text-center mb-12 flex flex-col items-center staggered-animation">
           <img 
             src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
             alt="ESTIM Logo" 
-            className="h-24 md:h-32 mb-4 animate-fadeIn" 
+            className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
           />
-          <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2 animate-fadeIn slide-in-right">
             Vérification des Résultats
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto animate-fadeIn">
             Entrez votre matricule pour consulter vos résultats académiques.
           </p>
         </header>
 
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeIn">
+        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeInScale scale-on-hover">
           <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
           
           {isLoading && <LoadingSpinner />}
           
           {error && (
             <div className="mt-8 text-center animate-fadeIn">
-              <p className="text-red-600">{error}</p>
+              <p className="text-red-600 animate-pulse">{error}</p>
             </div>
           )}
           
@@ -73,7 +84,7 @@ const Index = () => {
         </div>
       </div>
       
-      <footer className="mt-12 py-4 text-center text-gray-500 text-sm relative z-10">
+      <footer className="mt-12 py-4 text-center text-gray-500 text-sm relative z-10 animate-fadeIn">
         <p>© {new Date().getFullYear()} ESTIM. Tous droits réservés.</p>
       </footer>
     </div>
