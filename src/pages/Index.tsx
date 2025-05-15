@@ -6,6 +6,8 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { useToast } from "@/components/ui/use-toast";
 import { fetchStudentResult } from "@/lib/api";
 import type { StudentResult as StudentResultType } from "@/types/student";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +45,11 @@ const Index = () => {
     }
   };
 
+  const handleReset = () => {
+    setStudentResult(null);
+    setError(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
       {/* Background pattern avec animation */}
@@ -66,18 +73,28 @@ const Index = () => {
         </header>
 
         <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8 animate-fadeInScale scale-on-hover">
-          <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
-          
-          {isLoading && <LoadingSpinner />}
-          
-          {error && (
-            <div className="mt-8 text-center animate-fadeIn">
-              <p className="text-red-600 animate-pulse">{error}</p>
-            </div>
-          )}
-          
-          {studentResult && (
-            <div className="mt-8 animate-fadeIn">
+          {!studentResult ? (
+            <>
+              <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
+              
+              {isLoading && <LoadingSpinner />}
+              
+              {error && (
+                <div className="mt-8 text-center animate-fadeIn">
+                  <p className="text-red-600 animate-pulse">{error}</p>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="animate-fadeIn">
+              <Button 
+                onClick={handleReset} 
+                variant="outline" 
+                className="mb-6 hover:bg-blue-50 group transition-all duration-300"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                Rechercher un autre matricule
+              </Button>
               <StudentResult student={studentResult} />
             </div>
           )}
