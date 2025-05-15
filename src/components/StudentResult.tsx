@@ -1,16 +1,21 @@
 
-import React from "react";
+import React, { useState } from "react";
 import type { StudentResult as StudentResultType } from "@/types/student";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Loader } from "lucide-react";
 
 interface StudentResultProps {
   student: StudentResultType;
 }
 
 const StudentResult = ({ student }: StudentResultProps) => {
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
   const getInitials = (name: string) => {
     return name
       .split(" ")
@@ -46,15 +51,30 @@ const StudentResult = ({ student }: StudentResultProps) => {
             <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full">
               <div className="relative mx-auto md:mx-0">
                 <div className="h-32 w-32 rounded-full overflow-hidden ring-4 ring-blue-200 transition-all duration-300 hover:scale-105 shadow-lg">
-                  <AspectRatio ratio={1/1}>
-                    <img 
-                      src={student.photo} 
-                      alt={student.nom_prenom}
-                      className="object-cover w-full h-full"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "https://gestion.estim-online.com/media/photos/default.png";
-                      }}
-                    />
+                  <AspectRatio ratio={1/1} className="bg-blue-50 flex items-center justify-center">
+                    {imageLoading && !imageError && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-blue-50 z-10">
+                        <Loader className="h-8 w-8 animate-spin text-blue-500" />
+                      </div>
+                    )}
+                    {!imageError ? (
+                      <img 
+                        src={student.photo} 
+                        alt={student.nom_prenom}
+                        className={`object-cover w-full h-full transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                        onLoad={() => setImageLoading(false)}
+                        onError={(e) => {
+                          setImageLoading(false);
+                          setImageError(true);
+                        }}
+                      />
+                    ) : (
+                      <img 
+                        src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
+                        alt="ESTIM Logo"
+                        className="object-contain w-3/4 h-3/4 opacity-70" 
+                      />
+                    )}
                   </AspectRatio>
                 </div>
               </div>
