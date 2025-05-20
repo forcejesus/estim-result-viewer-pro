@@ -26,7 +26,6 @@ const ShareButton = ({ student }: ShareButtonProps) => {
     setSharing(true);
     try {
       // Créer le lien direct vers les résultats
-      const resultatsLink = `https://resultats.estim-online.com?matricule=${student.matricule}`;
       const inscriptionsLink = "https://inscriptions.estim-online.com";
       
       // Créer un texte de partage avec les informations nécessaires et le nouveau format
@@ -39,7 +38,6 @@ const ShareButton = ({ student }: ShareButtonProps) => {
 📈 Moyenne générale : ${student.moyenne_generale} / 20
 📌 Statut : ${getStatusLabel(student.moyenne_generale)}
 
-📥 Consultez vos résultats 👉 ${resultatsLink}
 📝 Prenez une inscription dans notre école 👉 ${inscriptionsLink}
       `;
 
@@ -48,7 +46,7 @@ const ShareButton = ({ student }: ShareButtonProps) => {
         await navigator.share({
           title: `Résultats ESTIM - ${student.nom_prenom}`,
           text: shareText,
-          url: resultatsLink
+          url: inscriptionsLink
         });
         toast({
           title: "Partage réussi",
