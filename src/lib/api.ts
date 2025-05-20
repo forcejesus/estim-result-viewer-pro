@@ -32,7 +32,7 @@ export async function fetchStudentResult(matricule: string): Promise<StudentResu
     matricule: matricule,
     classe: data.classe,
     moyenne_generale: data.moyenne_generale ? data.moyenne_generale.toString() : "0",
-    photo: "", // L'API ne retourne plus de photo
+    photo: data.photo || "", // Utilisation de la photo de l'API
     matieres: data.matieres
   };
   

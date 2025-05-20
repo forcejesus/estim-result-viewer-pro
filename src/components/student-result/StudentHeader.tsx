@@ -27,7 +27,7 @@ const StudentHeader = ({ student }: StudentHeaderProps) => {
                 )}
                 {!imageError ? (
                   <img 
-                    src={student.photo} 
+                    src={student.photo || "/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png"} 
                     alt={student.nom_prenom}
                     className={`object-cover w-full h-full transition-all duration-700 ${imageLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
                     onLoad={() => setImageLoading(false)}
