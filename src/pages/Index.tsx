@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Ban, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+import SuccessConfetti from "@/components/SuccessConfetti";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +68,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-accent/20 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-primary/5 relative overflow-hidden">
       {/* Background pattern avec animation */}
       <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-primary animate-float"></div>
       
@@ -136,7 +137,10 @@ const Index = () => {
                   </AlertDescription>
                 </Alert>
               ) : (
-                <StudentResult student={studentResult} />
+                <>
+                  <StudentResult student={studentResult} />
+                  <SuccessConfetti moyenne={studentResult.moyenne_generale} studentName={studentResult.nom_prenom} />
+                </>
               )}
             </div>
           )}
