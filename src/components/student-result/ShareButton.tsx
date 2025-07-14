@@ -1,15 +1,16 @@
 
 import React, { useState } from "react";
-import { StudentResult } from "@/types/student";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ShareButtonProps {
-  student: StudentResult;
+  studentName: string;
+  moyenne: string;
+  classe: string;
 }
 
-const ShareButton = ({ student }: ShareButtonProps) => {
+const ShareButton = ({ studentName, moyenne, classe }: ShareButtonProps) => {
   const [sharing, setSharing] = useState(false);
   const { toast } = useToast();
 
@@ -33,10 +34,10 @@ const ShareButton = ({ student }: ShareButtonProps) => {
 📊 Résultats académiques - ESTIM 🎓
 École Supérieure de Technologie, d'Ingénierie et de Management
 
-👤 Étudiant(e) : ${student.nom_prenom}
-🏫 Classe : ${student.classe}
-📈 Moyenne générale : ${student.moyenne_generale} / 20
-📌 Statut : ${getStatusLabel(student.moyenne_generale)}
+👤 Étudiant(e) : ${studentName}
+🏫 Classe : ${classe}
+📈 Moyenne générale : ${moyenne} / 20
+📌 Statut : ${getStatusLabel(moyenne)}
 
 📝 Prenez une inscription dans notre école 👉 ${inscriptionsLink}
       `;
@@ -44,7 +45,7 @@ const ShareButton = ({ student }: ShareButtonProps) => {
       // Utiliser l'API Web Share si disponible
       if (navigator.share) {
         await navigator.share({
-          title: `Résultats ESTIM - ${student.nom_prenom}`,
+          title: `Résultats ESTIM - ${studentName}`,
           text: shareText,
           url: inscriptionsLink
         });

@@ -1,39 +1,53 @@
 
 import React from "react";
-import type { StudentResult as StudentResultType } from "@/types/student";
 import StudentHeader from "./StudentHeader";
 import StudentScore from "./StudentScore";
 import SubjectsTable from "./SubjectsTable";
 import ShareButton from "./ShareButton";
-import SuccessConfetti from "../SuccessConfetti";
+import { NoExamMessage } from "./NoExamMessage";
+import { DebtMessage } from "./DebtMessage";
+import type { StudentResult as StudentResultType } from "@/types/student";
 
 interface StudentResultProps {
   student: StudentResultType;
 }
 
 const StudentResult = ({ student }: StudentResultProps) => {
+  // Vérifier le type de réponse
+  if ('detail' in student) {
+    // Cas de dette
+    return <DebtMessage student={student} />;
+  }
+  
+  if (student.moyenne_generale_annuelle === null || student.matieres.length === 0) {
+    // Cas sans examens - cast sécurisé car on vérifie déjà les conditions
+    return <NoExamMessage student={student as any} />;
+  }
+  
+  // Cas normal avec résultats
   return (
-    <div className="w-full max-w-full mx-auto">
-      <SuccessConfetti moyenne={student.moyenne_generale} studentName={student.nom_prenom} />
-      <div className="overflow-hidden border-2 border-blue-100 shadow-lg animate-fadeInScale transition-all duration-500 hover:shadow-xl rounded-lg">
-        <StudentHeader student={student} />
-        
-        <div className="p-4 md:p-6 bg-gradient-to-b from-white to-blue-50">
-          <div className="flex flex-col items-center justify-center staggered-animation">
-            <StudentScore moyenne={student.moyenne_generale} />
-            
-            {/* Affichage des matières */}
-            {student.matieres && student.matieres.length > 0 && (
-              <SubjectsTable subjects={student.matieres} />
-            )}
-
-            {/* Bouton de partage */}
-            <div className="mt-6 w-full">
-              <ShareButton student={student} />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="space-y-6 animate-fade-in">
+      <StudentHeader 
+        name={student.etudiant}
+        matricule={student.matricule}
+        classe={student.classe}
+        anneeAcademique={student.annee_academique}
+        photo={student.photo}
+      />
+      
+      <StudentScore 
+        moyenne={student.moyenne_generale_annuelle.toString()}
+        nombreMatieres={student.nombre_matieres}
+        totalCoefficient={student.total_coefficient}
+      />
+      
+      <SubjectsTable subjects={student.matieres} />
+      
+      <ShareButton 
+        studentName={student.etudiant}
+        moyenne={student.moyenne_generale_annuelle.toString()}
+        classe={student.classe}
+      />
     </div>
   );
 };

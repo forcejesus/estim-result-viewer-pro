@@ -1,73 +1,69 @@
 
 import React, { useState } from "react";
-import type { StudentResult } from "@/types/student";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader, GraduationCap, UserRound } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BookOpen, Calendar, GraduationCap } from "lucide-react";
 
 interface StudentHeaderProps {
-  student: StudentResult;
+  name: string;
+  matricule: string;
+  classe: string;
+  anneeAcademique: string;
+  photo: string;
 }
 
-const StudentHeader = ({ student }: StudentHeaderProps) => {
-  const [imageLoading, setImageLoading] = useState(true);
-  const [imageError, setImageError] = useState(false);
-
+const StudentHeader = ({ name, matricule, classe, anneeAcademique, photo }: StudentHeaderProps) => {
   return (
-    <div className="bg-gradient-to-b from-blue-100 to-blue-50 p-4 md:p-6 rounded-t-lg shadow-inner relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-        <GraduationCap className="w-full h-full text-blue-800" />
+    <Card className="bg-gradient-to-br from-primary/10 via-primary-glow/5 to-accent/10 border-border/30 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
+        <GraduationCap className="w-full h-full text-primary" />
       </div>
       
-      <div className="flex items-center justify-between relative z-10">
-        <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6 w-full staggered-animation">
-          <div className="relative mx-auto md:mx-0 animate-fadeIn hover-lift">
-            <div className="h-24 w-24 md:h-36 md:w-36 rounded-full overflow-hidden ring-4 ring-blue-300 transition-all duration-500 hover:ring-blue-400 shadow-xl hover:shadow-2xl">
-              <AspectRatio ratio={1/1} className="bg-blue-100 flex items-center justify-center">
-                {imageLoading && !imageError && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-blue-50 z-10">
-                    <Loader className="h-6 w-6 md:h-8 md:w-8 animate-spin text-blue-500" />
-                  </div>
-                )}
-                {!imageError ? (
-                  <img 
-                    src={student.photo || "/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png"} 
-                    alt={student.nom_prenom}
-                    className={`object-cover w-full h-full transition-all duration-700 ${imageLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
-                    onLoad={() => setImageLoading(false)}
-                    onError={() => {
-                      setImageLoading(false);
-                      setImageError(true);
-                    }}
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full w-full bg-blue-100">
-                    <UserRound className="h-12 w-12 md:h-16 md:w-16 text-blue-400 mb-1" />
-                    <img 
-                      src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
-                      alt="ESTIM Logo"
-                      className="object-contain w-1/2 h-1/2 opacity-60" 
-                    />
-                  </div>
-                )}
-              </AspectRatio>
-            </div>
+      <CardContent className="p-6 relative z-10">
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          {/* Photo de profil */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-glow/30 rounded-full blur-lg animate-pulse"></div>
+            <Avatar className="h-24 w-24 md:h-32 md:w-32 relative border-4 border-background shadow-elegant">
+              <AvatarImage 
+                src={photo} 
+                alt={name}
+                className="object-cover transition-all duration-500 hover:scale-105" 
+              />
+              <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary-glow/20 text-primary font-bold text-2xl">
+                {name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              </AvatarFallback>
+            </Avatar>
           </div>
-          <div className="text-center md:text-left animate-fadeIn slide-in-right flex-1">
-            <h2 className="text-lg md:text-2xl font-bold text-blue-800 mb-2 tracking-tight">{student.nom_prenom}</h2>
-            <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-1">
-              <Badge variant="outline" className="text-xs md:text-sm bg-white bg-opacity-70 border-blue-200 text-blue-800 hover-lift">
-                Matricule: {student.matricule}
-              </Badge>
-              <Badge className="text-xs md:text-sm bg-blue-600 shadow-sm hover-lift">
-                {student.classe}
+          
+          {/* Informations étudiant */}
+          <div className="flex-1 text-center md:text-left space-y-3">
+            <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+              {name}
+            </h2>
+            
+            <div className="flex items-center gap-4 text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <BookOpen className="h-4 w-4" />
+                {classe}
+              </span>
+              <span className="flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                {anneeAcademique}
+              </span>
+            </div>
+            
+            <div className="flex justify-center md:justify-start">
+              <Badge variant="outline" className="bg-background/50 border-primary/30 text-primary font-mono">
+                Matricule: {matricule}
               </Badge>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

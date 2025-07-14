@@ -5,9 +5,11 @@ import { Award, TrendingUp, TrendingDown, Star } from "lucide-react";
 
 interface StudentScoreProps {
   moyenne: string;
+  nombreMatieres: number;
+  totalCoefficient: number;
 }
 
-const StudentScore = ({ moyenne }: StudentScoreProps) => {
+const StudentScore = ({ moyenne, nombreMatieres, totalCoefficient }: StudentScoreProps) => {
   const [animationComplete, setAnimationComplete] = useState(false);
   
   // Déclencher l'animation de la barre de progression après le chargement initial

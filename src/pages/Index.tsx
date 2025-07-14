@@ -116,12 +116,12 @@ const Index = () => {
                 Rechercher un autre matricule
               </Button>
               
-              {studentResult.details ? (
+              {('detail' in studentResult) ? (
                 <Alert variant="destructive" className="animate-fadeIn border-2 border-red-200 bg-red-50">
                   <Ban className="h-5 w-5 text-red-500 mr-2" />
                   <AlertTitle className="text-lg font-bold mb-2">Accès refusé</AlertTitle>
                   <AlertDescription className="text-red-800">
-                    {studentResult.details}
+                    {studentResult.detail}
                     <div className="mt-4 bg-amber-50 border border-amber-200 p-4 rounded-lg">
                       <div className="flex items-start">
                         <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5 mr-2" />
@@ -139,7 +139,18 @@ const Index = () => {
               ) : (
                 <>
                   <StudentResult student={studentResult} />
-                  <SuccessConfetti moyenne={studentResult.moyenne_generale} studentName={studentResult.nom_prenom} />
+                  <SuccessConfetti 
+                    moyenne={
+                      'moyenne_generale_annuelle' in studentResult && studentResult.moyenne_generale_annuelle !== null
+                        ? studentResult.moyenne_generale_annuelle.toString()
+                        : "0"
+                    } 
+                    studentName={
+                      'etudiant' in studentResult 
+                        ? studentResult.etudiant 
+                        : ""
+                    } 
+                  />
                 </>
               )}
             </div>
