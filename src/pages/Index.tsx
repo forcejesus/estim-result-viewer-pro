@@ -9,6 +9,7 @@ import type { StudentResult as StudentResultType } from "@/types/student";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Ban, AlertTriangle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +23,18 @@ const Index = () => {
     const timer = setTimeout(() => {
       setPageLoaded(true);
     }, 300);
+    
+    // Enregistrer le service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('SW registered: ', registration);
+        })
+        .catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    }
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -54,9 +67,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-accent/20 relative overflow-hidden">
       {/* Background pattern avec animation */}
-      <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-blue-500 animate-float"></div>
+      <div className="absolute inset-0 z-0 opacity-5 pattern-grid-lg text-primary animate-float"></div>
       
       <div 
         className={`container mx-auto px-0 sm:px-4 py-12 relative z-10 transition-opacity duration-1000 ease-out ${pageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -69,16 +82,16 @@ const Index = () => {
               alt="ESTIM Logo" 
               className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
             />
-            <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2 animate-fadeIn slide-in-right">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent mb-2 animate-fadeIn slide-in-right">
               Consultation des Résultats
             </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto animate-fadeIn">
+            <p className="text-muted-foreground max-w-2xl mx-auto animate-fadeIn">
               Entrez votre matricule pour consulter vos résultats académiques.
             </p>
           </header>
         )}
 
-        <div className={`max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-4 md:p-8 animate-fadeInScale scale-on-hover ${studentResult ? "mt-6" : ""}`}>
+        <div className={`max-w-3xl mx-auto bg-card/80 backdrop-blur-sm rounded-2xl shadow-card border border-border/50 p-4 md:p-8 animate-fadeInScale hover:shadow-elegant transition-all duration-500 ${studentResult ? "mt-6" : ""}`}>
           {!studentResult ? (
             <>
               <ResultSearch onSearch={handleSearch} isLoading={isLoading} />
@@ -96,7 +109,7 @@ const Index = () => {
               <Button 
                 onClick={handleReset} 
                 variant="outline" 
-                className="mb-6 hover:bg-blue-50 group transition-all duration-300"
+                className="mb-6 hover:bg-primary/5 hover:border-primary/30 group transition-all duration-300"
               >
                 <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                 Rechercher un autre matricule
@@ -130,9 +143,11 @@ const Index = () => {
         </div>
       </div>
       
-      <footer className="mt-12 py-4 text-center text-gray-500 text-sm relative z-10 animate-fadeIn">
+      <footer className="mt-12 py-4 text-center text-muted-foreground text-sm relative z-10 animate-fadeIn">
         <p>© {new Date().getFullYear()} ESTIM. Tous droits réservés.</p>
       </footer>
+      
+      <PWAInstallPrompt />
     </div>
   );
 };
