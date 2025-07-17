@@ -81,10 +81,10 @@ const Index = () => {
             <img 
               src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
               alt="ESTIM Logo" 
-              className="h-24 md:h-32 mb-4 animate-fadeInScale animate-bounce-slow" 
+              className="h-32 md:h-40 lg:h-48 mb-6 animate-fadeInScale animate-bounce-slow hover:scale-110 transition-transform duration-500" 
             />
             <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent mb-2 animate-fadeIn slide-in-right">
-              Consultation des Résultats
+              ESTIM-RESULTATS
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto animate-fadeIn">
               Entrez votre matricule pour consulter vos résultats académiques.
@@ -106,7 +106,7 @@ const Index = () => {
               )}
             </>
           ) : (
-            <div className="animate-fadeIn">
+            <div className="animate-fadeInScale transform-gpu">
               <Button 
                 onClick={handleReset} 
                 variant="outline" 
@@ -117,7 +117,7 @@ const Index = () => {
               </Button>
               
               {('detail' in studentResult) ? (
-                <Alert variant="destructive" className="animate-fadeIn border-2 border-red-200 bg-red-50">
+                <Alert variant="destructive" className="animate-fadeInScale border-2 border-red-200 bg-red-50">
                   <Ban className="h-5 w-5 text-red-500 mr-2" />
                   <AlertTitle className="text-lg font-bold mb-2">Accès refusé</AlertTitle>
                   <AlertDescription className="text-red-800">

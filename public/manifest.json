@@ -1,6 +1,6 @@
 {
-  "name": "ESTIM Result Viewer Pro",
-  "short_name": "ESTIM Results",
+  "name": "ESTIM-RESULTATS",
+  "short_name": "ESTIM-RESULTATS",
   "description": "Consultation des résultats académiques ESTIM",
   "start_url": "/",
   "display": "standalone",
