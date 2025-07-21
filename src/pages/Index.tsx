@@ -79,7 +79,7 @@ const Index = () => {
         {!studentResult && (
           <header className="text-center mb-12 flex flex-col items-center staggered-animation px-4">
             <img 
-              src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png" 
+              src="/lovable-uploads/7e124e66-a387-44e7-b34a-4ccb56933bdc.png" 
               alt="ESTIM Logo" 
               className="h-32 md:h-40 lg:h-48 mb-6 animate-fadeInScale animate-bounce-slow hover:scale-110 transition-transform duration-500" 
             />
