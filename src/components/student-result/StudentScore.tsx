@@ -23,8 +23,10 @@ const StudentScore = ({ moyenne, nombreMatieres, totalCoefficient }: StudentScor
   const getColorByMoyenne = (moyenne: string) => {
     const moyenneNum = parseFloat(moyenne);
     
-    if (moyenneNum >= 14) return "bg-gradient-to-br from-green-400 to-green-600";
-    if (moyenneNum >= 12) return "bg-gradient-to-br from-blue-400 to-blue-600";
+    if (moyenneNum >= 17) return "bg-gradient-to-br from-emerald-400 to-emerald-600";
+    if (moyenneNum >= 16) return "bg-gradient-to-br from-green-400 to-green-600";
+    if (moyenneNum >= 14) return "bg-gradient-to-br from-blue-400 to-blue-600";
+    if (moyenneNum >= 12) return "bg-gradient-to-br from-cyan-400 to-cyan-600";
     if (moyenneNum >= 10) return "bg-gradient-to-br from-yellow-400 to-yellow-600";
     return "bg-gradient-to-br from-red-400 to-red-600";
   };
@@ -32,8 +34,10 @@ const StudentScore = ({ moyenne, nombreMatieres, totalCoefficient }: StudentScor
   const getLightColorByMoyenne = (moyenne: string) => {
     const moyenneNum = parseFloat(moyenne);
     
-    if (moyenneNum >= 14) return "bg-green-100 text-green-800";
-    if (moyenneNum >= 12) return "bg-blue-100 text-blue-800";
+    if (moyenneNum >= 17) return "bg-emerald-100 text-emerald-800";
+    if (moyenneNum >= 16) return "bg-green-100 text-green-800";
+    if (moyenneNum >= 14) return "bg-blue-100 text-blue-800";
+    if (moyenneNum >= 12) return "bg-cyan-100 text-cyan-800";
     if (moyenneNum >= 10) return "bg-yellow-100 text-yellow-800";
     return "bg-red-100 text-red-800";
   };
@@ -41,8 +45,10 @@ const StudentScore = ({ moyenne, nombreMatieres, totalCoefficient }: StudentScor
   const getStatusLabel = (moyenne: string) => {
     const moyenneNum = parseFloat(moyenne);
     
-    if (moyenneNum >= 14) return "Excellent";
-    if (moyenneNum >= 12) return "Bien";
+    if (moyenneNum >= 17) return "Excellent";
+    if (moyenneNum >= 16) return "Très bien";
+    if (moyenneNum >= 14) return "Bien";
+    if (moyenneNum >= 12) return "Assez bien";
     if (moyenneNum >= 10) return "Passable";
     return "Insuffisant";
   };
@@ -50,7 +56,9 @@ const StudentScore = ({ moyenne, nombreMatieres, totalCoefficient }: StudentScor
   const getStatusIcon = (moyenne: string) => {
     const moyenneNum = parseFloat(moyenne);
     
-    if (moyenneNum >= 14) return <Award className="h-5 w-5" />;
+    if (moyenneNum >= 17) return <Award className="h-5 w-5" />;
+    if (moyenneNum >= 16) return <Star className="h-5 w-5" />;
+    if (moyenneNum >= 14) return <TrendingUp className="h-5 w-5" />;
     if (moyenneNum >= 12) return <TrendingUp className="h-5 w-5" />;
     if (moyenneNum >= 10) return <Star className="h-5 w-5" />;
     return <TrendingDown className="h-5 w-5" />;
