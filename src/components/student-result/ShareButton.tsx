@@ -83,7 +83,7 @@ const ShareButton = ({ studentName, moyenne, classe }: ShareButtonProps) => {
       <div className="flex items-center justify-center w-full">
         <div className="flex items-center mr-2">
           <img
-            src="/lovable-uploads/3fd38e18-45e3-4c7a-936a-8e6c4427d649.png"
+            src="/lovable-uploads/7e124e66-a387-44e7-b34a-4ccb56933bdc.png"
             alt="ESTIM Logo"
             className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2 group-hover:scale-110 transition-transform"
           />
