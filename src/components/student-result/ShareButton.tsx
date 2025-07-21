@@ -78,19 +78,21 @@ const ShareButton = ({ studentName, moyenne, classe }: ShareButtonProps) => {
     <Button 
       onClick={handleShare}
       disabled={sharing}
-      className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 group transition-all duration-300 shadow-lg hover:shadow-xl py-2 md:py-3 text-sm md:text-base"
+      className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 group transition-all duration-300 shadow-lg hover:shadow-xl py-3 md:py-4 text-sm md:text-base"
     >
-      <div className="flex items-center justify-center w-full">
-        <div className="flex items-center mr-2">
+      <div className="flex items-center justify-center w-full gap-2">
+        <div className="flex items-center">
           <img
             src="/lovable-uploads/7e124e66-a387-44e7-b34a-4ccb56933bdc.png"
             alt="ESTIM Logo"
-            className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2 group-hover:scale-110 transition-transform"
+            className="h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform"
           />
-          <span className="font-medium text-sm md:text-base">ESTIM</span>
+          <span className="font-medium text-sm md:text-base ml-1 md:ml-2">ESTIM</span>
         </div>
-        <Share2 className="h-3 w-3 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
-        <span className="ml-1 text-sm md:text-base">{sharing ? "Partage en cours..." : "Partager ce résultat"}</span>
+        <Share2 className="h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" />
+        <span className="text-sm md:text-base font-medium">
+          {sharing ? "Partage en cours..." : "Partager ce résultat"}
+        </span>
       </div>
     </Button>
   );
