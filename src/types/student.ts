@@ -5,12 +5,14 @@ export interface SubjectResult {
   moyennes_par_semestre: {
     semestre: string;
     moyenne_brute: number;
-    note_devoir: string;
-    note_examen: string;
+    note_devoir: number;
+    note_examen: number;
+    has_notes: boolean;
   }[];
   nombre_semestres: number;
   moyenne_annuelle_brute: number;
   moyenne_annuelle_ponderee: number;
+  has_notes: boolean;
 }
 
 export interface StudentDetailedResult {
